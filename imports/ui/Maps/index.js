@@ -1,6 +1,7 @@
 import React from "react";
 import { Map, InfoWindow, Marker, GoogleApiWrapper } from "google-maps-react";
 import { flexbox } from "@material-ui/system";
+import washroomContext from "../../api/WashroomContext";
 
 const mapStyle = {
   width: "50%",
@@ -9,10 +10,7 @@ const mapStyle = {
 };
 
 class Maps extends React.Component {
-  constructor(props) {
-    super(props);
-    this.myRef = React.createRef();
-  }
+  static contextType;
 
   state = {
     activeMarker: {},
@@ -22,15 +20,15 @@ class Maps extends React.Component {
 
   onMarkerClick = (props, marker) => {
     //console.log(props, marker);
-    // this.setState({
-    //   activeMarker: marker,
-    //   selectedPlace: props,
-    //   showingInfoWindow: true
-    // });
+    this.setState({
+      activeMarker: marker,
+      selectedPlace: props,
+      showingInfoWindow: true
+    });
 
     // let propsCopy = JSON.parse(JSON.stringify(props));
-    let propsCopy = props;
-    propsCopy.position = { lat: 49.2828432, lng: -123.1190605 };
+    //let propsCopy = props;
+    //propsCopy.position = { lat: 49.2828432, lng: -123.1190605 };
 
     this.setState({
       activeMarker: marker,
@@ -58,6 +56,20 @@ class Maps extends React.Component {
   };
 
   render() {
+    // let arr = [1, 2, 3];
+    // console.log(arr);
+    // let washrooms = arr.map(value => {
+    //   return <Marker>{value}</Marker>;
+    // });
+
+    let map = ["washrooms"];
+    console.log(washrooms);
+
+    var i;
+    for (i = 0; i < map.length; i++) {
+      map[i];
+    }
+
     return (
       <Map
         google={this.props.google}
@@ -68,6 +80,7 @@ class Maps extends React.Component {
           lng: -123.1173159
         }}
       >
+        <Marker>{washrooms}</Marker>
         {/* add a for loop
         
         <Marker
@@ -76,7 +89,6 @@ class Maps extends React.Component {
           position={{ lat: 49.277912, lng: -123.1173159 }}
           ref={this.myRef}
         /> */}
-
         <InfoWindow
           marker={this.state.activeMarker}
           onClose={this.onInfoWindowClose}
